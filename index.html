@@ -23,6 +23,53 @@
     
     
 <body>
-    
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Toronto cycling</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://www.cycleto.ca/how-to-plan-your-bike-route" target="_blank">Plan Your Bicycle Routes</a>
+                    </li>
+                </ul>
+                <!-- add a gif in navbar -->
+                <div class="navbar-gif">
+                    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/5ecf1538800413.5770eaa1ed73e.gif" 
+                         alt="Bike GIF" 
+                         style="height: 40px;">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+     <!-- MAP CONTAINER, FROM https://github.com/MissyZhang/GGR472-lab3/blob/main/index.htmls -->
+     <div id='map' class='map-container'></div>
+
+     <!-- NAVIGATION ELEMENTS -->
+     <div class='map-search-container'>
+         <label>Search for GTA Location</label>
+         <div id="geocoder" class="geocoder"></div>
+         <button type="button" class="btn btn-primary btn-sm" id="returnbutton">Return to full extent</button>
+     </div>
+
+     <!-- Map Container -->
+     <div id="my-map" class="map-container"></div>
+
+     <!-- Bootstrap JS -->
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+     <!-- Custom JavaScript -->
+     <script src="script.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
 </html>
