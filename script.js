@@ -29,20 +29,46 @@ map.addControl(new mapboxgl.NavigationControl());
 map.addControl(new mapboxgl.FullscreenControl());
 
 
-
-
-
-
+// 这里开始是gpt
+// Bicycle parking layer
 map.on('load', () => {
-    //add data source from GeoJSON data, this is about the cycling network data
-    map.addSource('network-data', {
+    // Add Bike Parking Points Layer
+    map.addSource('bike-parking', {
         type: 'geojson',
-        data: 'https://huailun-j.github.io/GGR472-Lab2/Data/cycling-network.geojson' 
-     
+        data: 'your-bike-parking-data.geojson' // Replace with actual path
     });
 
-     // Add a layer to show the cycling network lines, matched with mapbox
-     map.addLayer({
+    map.addLayer({
+        'id': 'parking-points',
+        'type': 'circle',
+        'source': 'bike-parking',
+        'paint': {
+            'circle-radius': [
+                'interpolate', ['linear'], ['zoom'],
+                10, 7, // Zoom level 10: 7px
+                12, 5  // Zoom level 12: 5px
+            ],
+            'circle-color': [
+                'step', ['get', 'BICYCLE_CAPACITY'],
+                '#d9f2d9', // 0-20 (lightest green)
+                20, '#a7e0a7',
+                50, '#76cd76',
+                80, '#44bb44',
+                100, '#1faa1f',
+                120, '#0d880d' // >120 (darkest green)
+            ],
+            'circle-stroke-color': '#000000',
+            'circle-stroke-width': 1
+        }
+    });
+
+    // Cycling Network Layer
+    map.addSource('cycling-network', {
+        type: 'geojson',
+        data: 'https://huailun-j.github.io/GGR472-Lab3/Data/Bicycle-Parking.geojson'
+    });
+
+    map.addLayer({
         'id': 'network-line', // Unique ID for the layer
         'type': 'line', // Type of layer, line
         'source': 'network-data', // Source of the layer data
@@ -52,26 +78,25 @@ map.on('load', () => {
             'line-opacity': 0.91 //Opacity of the lines
         }
     });
-    
 
-    //add another data source from GeoJSON data, which is the bicycle parking racks 
-    map.addSource('parking-data', {
+    // Add Neighbourhood Layer
+    map.addSource('neighbourhoods', {
         type: 'geojson',
-        data: 'https://huailun-j.github.io/GGR472-Lab2/Data/Bicycle-Parking-Racks-Data.geojson' 
-
+        data: 'your-neighbourhoods-data.geojson' // Replace with actual path
     });
-    // Add a layer for bicycle parking rack, points, matched with mapbox
+
     map.addLayer({
-        'id': 'parking-point', 
-        'type':'circle', 
-        'source': 'parking-data', 
+        'id': 'neighbourhood-fill',
+        'type': 'fill',
+        'source': 'neighbourhoods',
         'paint': {
-            'circle-color': '#f014ae', 
-            'circle-opacity': 0.1, 
-            'circle-radius': 10 // Radius of the circles
+            'fill-color': '#fce3c0',
+            'fill-opacity': 0.64,
+            'fill-outline-color': 'black'
         }
-        
     });
 
-    
-});
+
+
+
+
