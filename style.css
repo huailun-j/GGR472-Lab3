@@ -3,3 +3,52 @@
   height: 680px;
 }
 
+/* from chatgpt */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden; /* Prevents scrolling */
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.map-search-container {
+    position: absolute;
+    top: 60px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000; /* Make sure it stays on top */
+}
+
+.map-search-container input {
+    width: 200px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.map-search-container button {
+    margin-top: 5px;
+    width: 100%;
+}
+
+/* 为了不让search location的放大镜和search字样重合 */
+.mapboxgl-ctrl-geocoder {
+    width: 100% !important;
+    max-width: 300px; /* Adjust width as needed */
+}
+
+.mapboxgl-ctrl-geocoder input {
+    padding-left: 35px !important; /* Ensures text starts after the search icon */
+}
