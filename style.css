@@ -14,10 +14,10 @@ html, body {
 
 #map {
     position: absolute;
-    top: 0;
+    top: 50px; 
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: calc(100vh - 60px); 
 }
 
 .map-search-container {
@@ -28,7 +28,7 @@ html, body {
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    z-index: 1000; /* Make sure it stays on top */
+    z-index: 1000; /* stays on top */
 }
 
 .map-search-container input {
@@ -43,7 +43,7 @@ html, body {
     width: 100%;
 }
 
-/* 为了不让search location的放大镜和search字样重合 */
+/* I aksed chatgpt here. To prevent search location's magnifying glass and search text from overlapping */
 .mapboxgl-ctrl-geocoder {
     width: 100% !important;
     max-width: 300px; /* Adjust width as needed */

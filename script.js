@@ -2,7 +2,7 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoiaHVhaWx1biIsImEiOiJjbTVvOTJvNzAwZnJrMmtwdGpkMzRvdmk1In0.TnWy4ZzmPCKAX1aYKDWMaQ'; 
 
 const map = new mapboxgl.Map({
-    container: 'my-map', // map container ID
+    container: 'map', // map container ID
     style: 'mapbox://styles/huailun/cm7mu0ad8019901qv61wbhg30', // style URL
     center: [-79.39, 43.73], // starting position [lng, lat], change this for centred map
     zoom: 10, // starting zoom level, adjust to a suitable size
@@ -37,11 +37,11 @@ map.on('load', () => {
     // Add Bicycle Parking Points Layer
     map.addSource('bicycle-parking', {
         type: 'geojson',
-        data: 'https://huailun-j.github.io/GGR472-Lab3/Data/Bicycle-Parking.geojson' // Replace with actual path
+        data: 'https://huailun-j.github.io/GGR472-Lab3/Data/Bicycle-Parking.geojson' 
     });
 
     map.addLayer({
-        'id': 'parking-points',
+        'id': 'bicycle-parking',
         'type': 'circle',
         'source': 'bicycle-parking',
         'paint': {
@@ -52,10 +52,11 @@ map.on('load', () => {
             ],
             'circle-color': [
                 'step', ['get', 'BICYCLE_CAPACITY'],
-                '#d9f2d9', // 0-30 (lightest green)
-                60, '#a7e0a7',
-                90, '#44bb44',
-                120, '#0d880d',//>120 (darkest green)
+                '#d9f2d9', 30,
+                '#a7e0a7', 60,
+                '#76cd76', 90,
+                '#44bb44', 120,
+                '#0d880d'
             ],
             'circle-stroke-color': '#000000',
             'circle-stroke-width': 1
@@ -69,9 +70,9 @@ map.on('load', () => {
     });
 
     map.addLayer({
-        'id': 'network-line', // Unique ID for the layer
+        'id': 'cycling-network', // Unique ID for the layer
         'type': 'line', // Type of layer, line
-        'source': 'network-data', // Source of the layer data
+        'source': 'cycling-network', // Source of the layer data
         'paint': {
             'line-color': '#d66705', // lines color
             'line-width': 2.2, //width of the lines
@@ -86,7 +87,7 @@ map.on('load', () => {
     });
 
     map.addLayer({
-        'id': 'neighbourhood-fill',
+        'id': 'neighbourhoods',
         'type': 'fill',
         'source': 'neighbourhoods',
         'paint': {
@@ -98,17 +99,17 @@ map.on('load', () => {
 
     // Pop-up windows that appear on a mouse click or hover
     // pop up, Bicycle Parking. When mouse click, can see the bicycle parking info. Changing cursor on mouse over.
-    map.on('mouseenter', 'bicycle-parking-points', () => {
+    map.on('mouseenter', 'bicycle-parking', () => {
         map.getCanvas().style.cursor = 'pointer';
     });
     
     // Changing cursor when mouse leave
-    map.on('mouseleave', 'bicycle-parking-points', () => {
+    map.on('mouseleave', 'bicycle-parking', () => {
         map.getCanvas().style.cursor = '';
     });
 
 
-    map.on('click', 'bicycle-parking-points', (e) => {
+    map.on('click', 'bicycle-parking', (e) => {
         new mapboxgl.Popup()
             .setLngLat(e.lngLat)
             .setHTML(
@@ -121,7 +122,7 @@ map.on('load', () => {
     });
 
     // pop up, cycling network, mouse enter and mouse leave
-    map.on('mouseenter', 'cycling-neiwork', () => {
+    map.on('mouseenter', 'cycling-network', () => {
         map.getCanvas().style.cursor = 'pointer';
     });
 
@@ -134,14 +135,14 @@ map.on('load', () => {
             .setLngLat(e.lngLat)
             .setHTML(
                 `<b>Street Name:</b> ${e.features[0].properties.STREET_NAME}<br>
-                 <b>From Street:</b> ${e.features[0].properties.FROM_STREET}
+                 <b>From Street:</b> ${e.features[0].properties.FROM_STREET}<br>
                  <b>To Street:</b> ${e.features[0].properties.TO_STREET}`
             )
             .addTo(map);
     });
 
     // create legend here
-    const legendlabels = [
+    const legendLabels = [
         '0-30',
         '30-60',
         '60-90',
@@ -150,7 +151,7 @@ map.on('load', () => {
         
     ];
     
-    const legendcolours = [
+    const legendColors = [
         '#d9f2d9',
         '#a7e0a7',
         '#76cd76',
@@ -185,14 +186,14 @@ map.on('load', () => {
         }
         else {
             legend.style.display = "none";
-            legendcheck.checked = false;
+            // legendcheck.checked = false;
         }
     });
 
     // Add event listener to toggle the visibility of the bicycle parking points layer
     document.getElementById('bicycleparkingcheck').addEventListener('change', (e) => {
         map.setLayoutProperty(
-            'parking-points',
+            'bicycle-parking',
             'visibility',
             e.target.checked ? 'visible' : 'none'
         );
@@ -201,7 +202,7 @@ map.on('load', () => {
     // event listener for cycling network layer
     document.getElementById('cyclingcheck').addEventListener('change', (e) => {
         map.setLayoutProperty(
-            'cyclingnetwork',
+            'cycling-network',
             'visibility',
             e.target.checked ? 'visible' : 'none'
         );
@@ -210,7 +211,7 @@ map.on('load', () => {
     // event listener for neighbourhood layer
     document.getElementById('neighbourhoodcheck').addEventListener('change', (e) => {
         map.setLayoutProperty(
-            'neighbourhood-fill',
+            'neighbourhoods',
             'visibility',
             e.target.checked ? 'visible' : 'none'
         );
