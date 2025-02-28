@@ -52,3 +52,87 @@ html, body {
 .mapboxgl-ctrl-geocoder input {
     padding-left: 35px !important; /* Ensures text starts after the search icon */
 }
+
+/* Data container (filter section) */
+.map-data-container {
+    position: absolute;
+    bottom: 20px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+/* Form checkboxes */
+.form-check {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.form-check-input {
+    margin-right: 5px;
+}
+
+/* Filter dropdown container */
+.filter-container {
+    position: absolute;
+    bottom: 90px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.filter-container select {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+/* Legend box */
+.legend-box {
+    position: absolute;
+    bottom: 20px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: block; /* Default is visible */
+}
+
+.legend-box h4 {
+    margin: 0;
+    font-size: 14px;
+}
+
+.legend-key {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+    border-radius: 50%;
+}
+
+/* Styling for each legend color */
+.legend-key:nth-child(1) { background: #d9f2d9; } /* 0-30 */
+.legend-key:nth-child(2) { background: #a7e0a7; } /* 30-60 */
+.legend-key:nth-child(3) { background: #76cd76; } /* 60-90 */
+.legend-key:nth-child(4) { background: #44bb44; } /* 90-120 */
+.legend-key:nth-child(5) { background: #0d880d; } /* >120 */
+
+/* Hide legend if checkbox is unchecked */
+#legend {
+    display: block;
+}
+
+#legend.hidden {
+    display: none;
+}
