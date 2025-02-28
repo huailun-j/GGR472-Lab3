@@ -40,6 +40,19 @@ map.on('load', () => {
         data: 'https://huailun-j.github.io/GGR472-Lab3/Data/Bicycle-Parking.geojson' 
     });
 
+
+    // Debug from chatgpt, but doesn't work: Print BICYCLE_CAPACITY values
+    map.on('sourcedata', (e) => {
+        if (e.sourceId === 'bicycle-parking' && e.isSourceLoaded) {
+            const features = map.querySourceFeatures('bicycle-parking');
+            features.forEach(feature => {
+                console.log('BICYCLE_CAPACITY:', feature.properties.BICYCLE_CAPACITY);
+            });
+        }
+    });
+
+
+
     map.addLayer({
         'id': 'bicycle-parking',
         'type': 'circle',
@@ -52,11 +65,11 @@ map.on('load', () => {
             ],
             'circle-color': [
                 'step', ['get', 'BICYCLE_CAPACITY'],
-                '#d9f2d9', 30,
-                '#a7e0a7', 60,
-                '#76cd76', 90,
-                '#44bb44', 120,
-                '#0d880d'
+                '#d9f2d9', 9,  //0-9
+                '#a7e0a7', 19,  //10-19
+                '#76cd76', 29,  //20-29
+                '#44bb44', 99,  //30-99
+                '#0d880d'   //>=100
             ],
             'circle-stroke-color': '#000000',
             'circle-stroke-width': 1
@@ -143,11 +156,11 @@ map.on('load', () => {
 
     // create legend here
     const legendLabels = [
-        '0-30',
-        '30-60',
-        '60-90',
-        '90-120',
-        '>120'
+        '0-9',
+        '10-19',
+        '20-29',
+        '30-99',
+        '>100'
         
     ];
     
