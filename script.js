@@ -35,7 +35,18 @@ map.on('load', () => {
     // Add Bicycle Parking Points Layer
     map.addSource('bicycle-parking', {
         type: 'geojson',
-        data: 'https://huailun-j.github.io/GGR472-Lab3/Data/Bicycle-Parking.geojson' 
+        data: 'https://raw.githubusercontent.com/huailun-j/GGR472-Lab3/refs/heads/main/Data/Bicycle-Parking.geojson' 
+    });
+
+
+    /////// Debug from chatgpt, but doesn't work: Print BICYCLE_CAPACITY values, can delete
+    map.on('sourcedata', (e) => {
+        if (e.sourceId === 'bicycle-parking' && e.isSourceLoaded) {
+            const features = map.querySourceFeatures('bicycle-parking');
+            features.forEach(feature => {
+                console.log('BICYCLE_CAPACITY:', feature.properties.BICYCLE_CAPACITY);
+            });
+        }
     });
 
 
@@ -43,6 +54,9 @@ map.on('load', () => {
         'id': 'bicycle-parking',
         'type': 'circle',
         'source': 'bicycle-parking',
+        'layout': {
+            'visibility': 'visible'  
+        },
         'paint': {
             'circle-radius': [
                 'interpolate', ['linear'], ['zoom'],
@@ -50,7 +64,8 @@ map.on('load', () => {
                 12,8  // Zoom level 12: 8px
             ],
             'circle-color': [
-                'step', ['get', 'BICYCLE_CAPACITY'], /////add to-number is from chatgpt, but doesn't work
+                'step', 
+                ['get', 'BICYCLE_CAPACITY'], 
                 '#d9f2d9',
                 9, '#a7e0a7',
                 19, '#76cd76', 
