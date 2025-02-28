@@ -8,6 +8,12 @@ const map = new mapboxgl.Map({
     zoom: 10, // starting zoom level, adjust to a suitable size
 });
 
+// add zoom control
+map.addControl(new mapboxgl.NavigationControl());
+
+// Add fullscreen option to the map
+map.addControl(new mapboxgl.FullscreenControl());
+
 //Those from gpt
 const geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
@@ -23,18 +29,13 @@ document.getElementById('returnbutton').addEventListener('click', () => {
     map.flyTo({ center: [-79.39, 43.73], zoom: 10 });
 });
 
-// add zoom control
-map.addControl(new mapboxgl.NavigationControl());
-
-// Add fullscreen option to the map
-map.addControl(new mapboxgl.FullscreenControl());
 
 
 // 这里开始是gpt
 // Bicycle parking layer
 map.on('load', () => {
-    // Add Bike Parking Points Layer
-    map.addSource('bike-parking', {
+    // Add Bicycle Parking Points Layer
+    map.addSource('bicycle-parking', {
         type: 'geojson',
         data: 'https://huailun-j.github.io/GGR472-Lab3/Data/Bicycle-Parking.geojson' // Replace with actual path
     });
@@ -42,7 +43,7 @@ map.on('load', () => {
     map.addLayer({
         'id': 'parking-points',
         'type': 'circle',
-        'source': 'bike-parking',
+        'source': 'bicycle-parking',
         'paint': {
             'circle-radius': [
                 'interpolate', ['linear'], ['zoom'],
@@ -81,7 +82,7 @@ map.on('load', () => {
     // Add Neighbourhood Layer
     map.addSource('neighbourhoods', {
         type: 'geojson',
-        data: 'your-neighbourhoods-data.geojson' // Replace with actual path
+        data: 'https://huailun-j.github.io/GGR472-Lab3/Data/Neighbourhoods.geojson' 
     });
 
     map.addLayer({
@@ -174,16 +175,6 @@ map.on('load', () => {
         legend.appendChild(item); //add row to the legend
     });
 
-
-    // Add event listener which returns map view to full screen on button click using flyTo method
-    // document.getElementById('returnbutton').addEventListener('click', () => {
-    //     map.flyTo({
-    //         center: [-105, 58],
-    //         zoom: 3,
-    //         essential: true
-    //     });
-    // });
-
     // Change display of legend based on check box
     let legendcheck = document.getElementById('legendcheck');
 
@@ -199,9 +190,9 @@ map.on('load', () => {
     });
 
     // Add event listener to toggle the visibility of the bicycle parking points layer
-    document.getElementById('bicycle4parkingcheck').addEventListener('change', (e) => {
+    document.getElementById('bicycleparkingcheck').addEventListener('change', (e) => {
         map.setLayoutProperty(
-            'bicycle-parking-points',
+            'parking-points',
             'visibility',
             e.target.checked ? 'visible' : 'none'
         );
@@ -210,19 +201,24 @@ map.on('load', () => {
     // event listener for cycling network layer
     document.getElementById('cyclingcheck').addEventListener('change', (e) => {
         map.setLayoutProperty(
-            'cycle-network',
+            'cyclingnetwork',
             'visibility',
             e.target.checked ? 'visible' : 'none'
         );
     });
 
     // event listener for neighbourhood layer
-    document.getElementById('neighbourhoodscheck').addEventListener('change', (e) => {
+    document.getElementById('neighbourhoodcheck').addEventListener('change', (e) => {
         map.setLayoutProperty(
             'neighbourhood-fill',
             'visibility',
             e.target.checked ? 'visible' : 'none'
         );
+    });
+
+    //event listener for legend
+    document.getElementById('legendcheck').addEventListener('change', (e) => {
+        document.getElementById('legend').style.display = e.target.checked ? 'block' : 'none';
     });
 
 });
