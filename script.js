@@ -14,7 +14,7 @@ map.addControl(new mapboxgl.NavigationControl());
 // Add fullscreen option to the map
 map.addControl(new mapboxgl.FullscreenControl());
 
-//Those from gpt
+
 const geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
     mapboxgl: mapboxgl,
@@ -30,9 +30,7 @@ document.getElementById('returnbutton').addEventListener('click', () => {
 });
 
 
-
-// 这里开始是gpt
-// Bicycle parking layer
+// Bicycle parking 
 map.on('load', () => {
     // Add Bicycle Parking Points Layer
     map.addSource('bicycle-parking', {
@@ -41,7 +39,7 @@ map.on('load', () => {
     });
 
 
-    // Debug from chatgpt, but doesn't work: Print BICYCLE_CAPACITY values
+    /////// Debug from chatgpt, but doesn't work: Print BICYCLE_CAPACITY values, can delete
     map.on('sourcedata', (e) => {
         if (e.sourceId === 'bicycle-parking' && e.isSourceLoaded) {
             const features = map.querySourceFeatures('bicycle-parking');
@@ -52,7 +50,6 @@ map.on('load', () => {
     });
 
 
-
     map.addLayer({
         'id': 'bicycle-parking',
         'type': 'circle',
@@ -60,23 +57,23 @@ map.on('load', () => {
         'paint': {
             'circle-radius': [
                 'interpolate', ['linear'], ['zoom'],
-                10, 7, // Zoom level 10: 7px
-                12, 5  // Zoom level 12: 5px
+                10, 5, // Zoom level 10: 5px
+                12,8  // Zoom level 12: 8px
             ],
             'circle-color': [
-                'step', ['get', 'BICYCLE_CAPACITY'],
-                '#d9f2d9', 9,  //0-9
-                '#a7e0a7', 19,  //10-19
-                '#76cd76', 29,  //20-29
-                '#44bb44', 99,  //30-99
-                '#0d880d'   //>=100
+                'step', ['to-number', ['get', 'BICYCLE_CAPACITY']], /////add to-number is from chatgpt, but doesn't work
+                '#d9f2d9', 9,
+                '#a7e0a7', 19,
+                '#76cd76', 29,
+                '#44bb44', 99,
+                '#0d880d'
             ],
             'circle-stroke-color': '#000000',
             'circle-stroke-width': 1
         }
     });
 
-    // Cycling Network Layer
+    // Cycling Network
     map.addSource('cycling-network', {
         type: 'geojson',
         data: 'https://huailun-j.github.io/GGR472-Lab3/Data/cycling-network.geojson'
@@ -93,7 +90,7 @@ map.on('load', () => {
         }
     });
 
-    // Add Neighbourhood Layer
+    // Add Neighbourhoods
     map.addSource('neighbourhoods', {
         type: 'geojson',
         data: 'https://huailun-j.github.io/GGR472-Lab3/Data/Neighbourhoods.geojson' 
@@ -120,18 +117,18 @@ map.on('load', () => {
     map.on('mouseleave', 'bicycle-parking', () => {
         map.getCanvas().style.cursor = '';
     });
-
-
+    
+    // Event listener for showing popup on click, here is points data bicycle parking
     map.on('click', 'bicycle-parking', (e) => {
         new mapboxgl.Popup()
-            .setLngLat(e.lngLat)
+            .setLngLat(e.lngLat) //Use method to set coordinates of popup based on mouse click location
             .setHTML(
                 `<b>Bike Parking Capacity:</b> ${e.features[0].properties.BICYCLE_CAPACITY}<br>
                  <b>Address:</b> ${e.features[0].properties.ADDRESS_FULL}<br>
                  <b>Parking Type:</b> ${e.features[0].properties.PARKING_TYPE}<br>
                  <b>Neighbourhood:</b> ${e.features[0].properties.WARD}`
             )
-            .addTo(map);
+            .addTo(map); //Show popup on map
     });
 
     // pop up, cycling network, mouse enter and mouse leave
@@ -142,7 +139,8 @@ map.on('load', () => {
     map.on('mouseleave', 'cycling-network', () => {
         map.getCanvas().style.cursor = '';
     });
-
+    
+    // Event listener for showing popup on click, here is line data cycling network
     map.on('click', 'cycling-network', (e) => {
         new mapboxgl.Popup()
             .setLngLat(e.lngLat)
@@ -155,6 +153,7 @@ map.on('load', () => {
     });
 
     // create legend here
+    //Define array variables for labels and colors.
     const legendLabels = [
         '0-9',
         '10-19',
@@ -174,7 +173,7 @@ map.on('load', () => {
     
     //Declare legend  here
     const legend = document.getElementById('legend');
-    //creating a block for each layer to put the colour and label in
+    //Create a block for each layer to store the color and label
     legendLabels.forEach((label, i) => {
         const item = document.createElement('div');
         const key = document.createElement('span');
@@ -199,7 +198,7 @@ map.on('load', () => {
         }
         else {
             legend.style.display = "none";
-            // legendcheck.checked = false;
+            legendcheck.checked = false;
         }
     });
 

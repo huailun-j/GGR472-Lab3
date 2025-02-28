@@ -3,7 +3,6 @@
   height: 680px;
 }
 
-/* from chatgpt */
 html, body {
     margin: 0;
     padding: 0;
@@ -103,7 +102,7 @@ html, body {
     border-radius: 50%;
 }
 
-/* Styling for each legend color */
+/* each legend color */
 .legend-key:nth-child(1) { background: #d9f2d9; } /* 0-30 */
 .legend-key:nth-child(2) { background: #a7e0a7; } /* 30-60 */
 .legend-key:nth-child(3) { background: #76cd76; } /* 60-90 */
