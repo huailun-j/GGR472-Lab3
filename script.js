@@ -35,11 +35,11 @@ map.on('load', () => {
     // Add Bicycle Parking Points Layer
     map.addSource('bicycle-parking', {
         type: 'geojson',
-        data: 'https://raw.githubusercontent.com/huailun-j/GGR472-Lab3/refs/heads/main/Data/Bicycle-Parking.geojson' 
+        data: 'https://raw.githubusercontent.com/huailun-j/GGR472-Lab3/main/Data/Bicycle-Parking.geojson' 
     });
 
 
-    /////// Debug from chatgpt, but doesn't work: Print BICYCLE_CAPACITY values, can delete
+    // Debug from chatgpt, but doesn't work: Print BICYCLE_CAPACITY values, can delete
     map.on('sourcedata', (e) => {
         if (e.sourceId === 'bicycle-parking' && e.isSourceLoaded) {
             const features = map.querySourceFeatures('bicycle-parking');
@@ -71,6 +71,7 @@ map.on('load', () => {
                 19, '#76cd76', 
                 29, '#44bb44', 
                 99, '#0d880d'
+
             ],
             'circle-stroke-color': '#000000',
             'circle-stroke-width': 1
@@ -80,7 +81,7 @@ map.on('load', () => {
     // Cycling Network
     map.addSource('cycling-network', {
         type: 'geojson',
-        data: 'https://huailun-j.github.io/GGR472-Lab3/Data/cycling-network.geojson'
+        data: 'https://raw.githubusercontent.com/huailun-j/GGR472-Lab3/main/Data/cycling-network.geojson'
     });
 
     map.addLayer({
@@ -97,7 +98,7 @@ map.on('load', () => {
     // Add Neighbourhoods
     map.addSource('neighbourhoods', {
         type: 'geojson',
-        data: 'https://huailun-j.github.io/GGR472-Lab3/Data/Neighbourhoods.geojson' 
+        data: 'https://raw.githubusercontent.com/huailun-j/GGR472-Lab3/main/Data/Neighbourhoods.geojson' 
     });
 
     map.addLayer({
