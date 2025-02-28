@@ -23,6 +23,7 @@ html, body {
     position: absolute;
     top: 60px;
     left: 10px;
+    width: 280px;
     background: rgba(255, 255, 255, 0.9);
     padding: 10px;
     border-radius: 5px;
@@ -55,8 +56,10 @@ html, body {
 /* Data container (filter section) */
 .map-data-container {
     position: absolute;
-    bottom: 20px;
+    top: 190px;
+    /* bottom: 20px; */
     left: 10px;
+    width: 280px;
     background: rgba(255, 255, 255, 0.9);
     padding: 10px;
     border-radius: 5px;
@@ -79,7 +82,7 @@ html, body {
 /* Legend box */
 .legend-box {
     position: absolute;
-    bottom: 20px;
+    bottom: 32px;
     right: 10px;
     background: rgba(255, 255, 255, 0.9);
     padding: 10px;

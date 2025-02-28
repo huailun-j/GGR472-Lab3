@@ -18,7 +18,7 @@ map.addControl(new mapboxgl.FullscreenControl());
 const geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
     mapboxgl: mapboxgl,
-    countries: "ca"
+    countries: "ca" //Canada only
 });
 
 // Append geocoder variable to goeocoder HTML div to position on page
