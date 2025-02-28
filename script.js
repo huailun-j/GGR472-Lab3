@@ -39,17 +39,6 @@ map.on('load', () => {
     });
 
 
-    /////// Debug from chatgpt, but doesn't work: Print BICYCLE_CAPACITY values, can delete
-    map.on('sourcedata', (e) => {
-        if (e.sourceId === 'bicycle-parking' && e.isSourceLoaded) {
-            const features = map.querySourceFeatures('bicycle-parking');
-            features.forEach(feature => {
-                console.log('BICYCLE_CAPACITY:', feature.properties.BICYCLE_CAPACITY);
-            });
-        }
-    });
-
-
     map.addLayer({
         'id': 'bicycle-parking',
         'type': 'circle',
@@ -61,12 +50,12 @@ map.on('load', () => {
                 12,8  // Zoom level 12: 8px
             ],
             'circle-color': [
-                'step', ['to-number', ['get', 'BICYCLE_CAPACITY']], /////add to-number is from chatgpt, but doesn't work
-                '#d9f2d9', 9,
-                '#a7e0a7', 19,
-                '#76cd76', 29,
-                '#44bb44', 99,
-                '#0d880d'
+                'step', ['get', 'BICYCLE_CAPACITY'], /////add to-number is from chatgpt, but doesn't work
+                '#d9f2d9',
+                9, '#a7e0a7',
+                19, '#76cd76', 
+                29, '#44bb44', 
+                99, '#0d880d'
             ],
             'circle-stroke-color': '#000000',
             'circle-stroke-width': 1
