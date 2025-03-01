@@ -345,7 +345,7 @@ map.on('load', () => {
 });
 
 
-//comes from chatgpt, intend to fix the error (points shows orange instead of green)
+//comes from chatgpt, intend to fix the error (my points shows orange instead of green)
 fetch('https://raw.githubusercontent.com/huailun-j/GGR472-Lab3/main/Data/Bicycle-Parking.geojson')
     .then(response => response.json())
     .then(data => {
