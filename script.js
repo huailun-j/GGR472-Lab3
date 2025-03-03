@@ -32,188 +32,189 @@ document.getElementById('returnbutton').addEventListener('click', () => {
 
 
 
-//here if founction from chatgpt, because when i see the console, shows the layer duplication, i'm not sure if it will cause the error.
-map.on('load', () => {
-    
-    // ✅ **Check and Add Bicycle Parking Source**
-    if (!map.getSource('bicycle-parking')) {
-        console.log("Adding bicycle-parking source...");
-        map.addSource('bicycle-parking', {
-            type: 'geojson',
-            data: 'https://raw.githubusercontent.com/huailun-j/GGR472-Lab3/main/Data/Bicycle-Parking.geojson'
-        });
-    } else {
-        console.log("Bicycle parking source already exists.");
-    }
-
-    // ✅ **Check and Add Bicycle Parking Layer**
-    if (!map.getLayer('bicycle-parking')) {
-        console.log("Adding bicycle-parking layer...");
-        map.addLayer({
-            'id': 'bicycle-parking',
-            'type': 'circle',
-            'source': 'bicycle-parking',
-            'paint': {
-                'circle-radius': [
-                    'interpolate', ['linear'], ['zoom'],
-                    10, 5, 
-                    12, 8  
-                ],
-                'circle-color': [
-                    'step', 
-                    ['get', 'BICYCLE_CAPACITY'], 
-                    '#d9f2d9',
-                    9, '#a7e0a7',
-                    19, '#76cd76', 
-                    29, '#44bb44', 
-                    99, '#0d880d'
-                ],
-                'circle-stroke-color': '#000000',
-                'circle-stroke-width': 1
-            }
-        });
-    } else {
-        console.log("Bicycle parking layer already exists.");
-    }
-
-    // ✅ **Check and Add Cycling Network Source**
-    if (!map.getSource('cycling-network')) {
-        map.addSource('cycling-network', {
-            type: 'geojson',
-            data: 'https://raw.githubusercontent.com/huailun-j/GGR472-Lab3/main/Data/cycling-network.geojson'
-        });
-    }
-
-    // ✅ **Check and Add Cycling Network Layer**
-    if (!map.getLayer('cycling-network')) {
-        map.addLayer({
-            'id': 'cycling-network',
-            'type': 'line',
-            'source': 'cycling-network',
-            'paint': {
-                'line-color': '#d66705',
-                'line-width': 2.2,
-                'line-opacity': 0.91
-            }
-        });
-    }
-
-    // ✅ **Check and Add Neighbourhood Source**
-    if (!map.getSource('neighbourhoods')) {
-        map.addSource('neighbourhoods', {
-            type: 'geojson',
-            data: 'https://raw.githubusercontent.com/huailun-j/GGR472-Lab3/main/Data/Neighbourhoods.geojson'
-        });
-    }
-
-    // ✅ **Check and Add Neighbourhood Layer**
-    if (!map.getLayer('neighbourhoods')) {
-        map.addLayer({
-            'id': 'neighbourhoods',
-            'type': 'fill',
-            'source': 'neighbourhoods',
-            'paint': {
-                'fill-color': '#fce3c0',
-                'fill-opacity': 0.64,
-                'fill-outline-color': 'black'
-            }
-        });
-    }
 
 
 
-
-
-
-
-
-
-
-
-
-
-// // Bicycle parking 
+// //here is the test. if founction from chatgpt, because when i see the console, shows the layer duplication, i'm not sure if it will cause the error.
 // map.on('load', () => {
-//     // Add Bicycle Parking Points Layer
-//     map.addSource('bicycle-parking', {
-//         type: 'geojson',
-//         data: 'https://raw.githubusercontent.com/huailun-j/GGR472-Lab3/main/Data/Bicycle-Parking.geojson' 
-//     });
+    
+//     // ✅ **Check and Add Bicycle Parking Source**
+//     if (!map.getSource('bicycle-parking')) {
+//         console.log("Adding bicycle-parking source...");
+//         map.addSource('bicycle-parking', {
+//             type: 'geojson',
+//             data: 'https://raw.githubusercontent.com/huailun-j/GGR472-Lab3/main/Data/Bicycle-Parking.geojson'
+//         });
+//     } else {
+//         console.log("Bicycle parking source already exists.");
+//     }
+
+//     // ✅ **Check and Add Bicycle Parking Layer**
+//     if (!map.getLayer('bicycle-parking')) {
+//         console.log("Adding bicycle-parking layer...");
+//         map.addLayer({
+//             'id': 'bicycle-parking',
+//             'type': 'circle',
+//             'source': 'bicycle-parking',
+//             'paint': {
+//                 'circle-radius': [
+//                     'interpolate', ['linear'], ['zoom'],
+//                     10, 5, 
+//                     12, 8  
+//                 ],
+//                 'circle-color': [
+//                     'step', 
+//                     ['get', 'BICYCLE_CAPACITY'], 
+//                     '#d9f2d9',
+//                     9, '#a7e0a7',
+//                     19, '#76cd76', 
+//                     29, '#44bb44', 
+//                     99, '#0d880d'
+//                 ],
+//                 'circle-stroke-color': '#000000',
+//                 'circle-stroke-width': 1
+//             }
+//         });
+//     } else {
+//         console.log("Bicycle parking layer already exists.");
+//     }
+
+//     // ✅ **Check and Add Cycling Network Source**
+//     if (!map.getSource('cycling-network')) {
+//         map.addSource('cycling-network', {
+//             type: 'geojson',
+//             data: 'https://raw.githubusercontent.com/huailun-j/GGR472-Lab3/main/Data/cycling-network.geojson'
+//         });
+//     }
+
+//     // ✅ **Check and Add Cycling Network Layer**
+//     if (!map.getLayer('cycling-network')) {
+//         map.addLayer({
+//             'id': 'cycling-network',
+//             'type': 'line',
+//             'source': 'cycling-network',
+//             'paint': {
+//                 'line-color': '#d66705',
+//                 'line-width': 2.2,
+//                 'line-opacity': 0.91
+//             }
+//         });
+//     }
+
+//     // ✅ **Check and Add Neighbourhood Source**
+//     if (!map.getSource('neighbourhoods')) {
+//         map.addSource('neighbourhoods', {
+//             type: 'geojson',
+//             data: 'https://raw.githubusercontent.com/huailun-j/GGR472-Lab3/main/Data/Neighbourhoods.geojson'
+//         });
+//     }
+
+//     // ✅ **Check and Add Neighbourhood Layer**
+//     if (!map.getLayer('neighbourhoods')) {
+//         map.addLayer({
+//             'id': 'neighbourhoods',
+//             'type': 'fill',
+//             'source': 'neighbourhoods',
+//             'paint': {
+//                 'fill-color': '#fce3c0',
+//                 'fill-opacity': 0.64,
+//                 'fill-outline-color': 'black'
+//             }
+//         });
+//     }
 
 
-//     // Debug from chatgpt, but doesn't work: Print BICYCLE_CAPACITY values, can delete
-//     map.on('sourcedata', (e) => {
-//         if (e.sourceId === 'bicycle-parking' && e.isSourceLoaded) {
-//             const features = map.querySourceFeatures('bicycle-parking');
-//             features.forEach(feature => {
-//                 console.log('BICYCLE_CAPACITY:', feature.properties.BICYCLE_CAPACITY);
-//             });
-//         }
-//     });
 
 
-//     map.addLayer({
-//         'id': 'bicycle-parking',
-//         'type': 'circle',
-//         'source': 'bicycle-parking',
-//         'layout': {
-//             'visibility': 'visible'  
-//         },
-//         'paint': {
-//             'circle-radius': [
-//                 'interpolate', ['linear'], ['zoom'],
-//                 10, 5, // Zoom level 10: 5px
-//                 12,8  // Zoom level 12: 8px
-//             ],
-//             'circle-color': [
-//                 'step', 
-//                 ['get', 'BICYCLE_CAPACITY'], 
-//                 '#d9f2d9',
-//                 9, '#a7e0a7',
-//                 19, '#76cd76', 
-//                 29, '#44bb44', 
-//                 99, '#0d880d'
 
-//             ],
-//             'circle-stroke-color': '#000000',
-//             'circle-stroke-width': 1
+
+
+
+
+
+
+// Bicycle parking 
+map.on('load', () => {
+    // Add Bicycle Parking Points Layer
+    map.addSource('bicycle-parking', {
+        type: 'geojson',
+        data: 'https://raw.githubusercontent.com/huailun-j/GGR472-Lab3/main/Data/Bicycle-Parking.geojson' 
+    });
+
+
+    ///////Debug from chatgpt, but doesn't work: Print BICYCLE_CAPACITY values, <can delete>
+    map.on('sourcedata', (e) => {
+        if (e.sourceId === 'bicycle-parking' && e.isSourceLoaded) {
+            const features = map.querySourceFeatures('bicycle-parking');
+            features.forEach(feature => {
+                console.log('BICYCLE_CAPACITY:', feature.properties.BICYCLE_CAPACITY);
+            });
+        }
+    });
+
+
+    map.addLayer({
+        'id': 'bicycle-parking',
+        'type': 'circle',
+        'source': 'bicycle-parking',
+        'layout': {
+            'visibility': 'visible'  
+        },
+        'paint': {
+            'circle-radius': [
+                'interpolate', ['linear'], ['zoom'],
+                10, 5, // Zoom level 10: 5px
+                12,8  // Zoom level 12: 8px
+            ],
+            'circle-color': [
+                'step', 
+                ['get', 'BICYCLE_CAPACITY'], 
+                '#d9f2d9',
+                9, '#a7e0a7',
+                19, '#76cd76', 
+                29, '#44bb44', 
+                99, '#0d880d'
+
+            ],
+            'circle-stroke-color': '#000000',
+            'circle-stroke-width': 1
  
-//         }
-//     });
+        }
+    });
 
-//     // Cycling Network
-//     map.addSource('cycling-network', {
-//         type: 'geojson',
-//         data: 'https://raw.githubusercontent.com/huailun-j/GGR472-Lab3/main/Data/cycling-network.geojson'
-//     });
+    // Cycling Network
+    map.addSource('cycling-network', {
+        type: 'geojson',
+        data: 'https://raw.githubusercontent.com/huailun-j/GGR472-Lab3/main/Data/cycling-network.geojson'
+    });
 
-//     map.addLayer({
-//         'id': 'cycling-network', // Unique ID for the layer
-//         'type': 'line', // Type of layer, line
-//         'source': 'cycling-network', // Source of the layer data
-//         'paint': {
-//             'line-color': '#d66705', // lines color
-//             'line-width': 2.2, //width of the lines
-//             'line-opacity': 0.91 //Opacity of the lines
-//         }
-//     });
+    map.addLayer({
+        'id': 'cycling-network', // Unique ID for the layer
+        'type': 'line', // Type of layer, line
+        'source': 'cycling-network', // Source of the layer data
+        'paint': {
+            'line-color': '#d66705', // lines color
+            'line-width': 2.2, //width of the lines
+            'line-opacity': 0.91 //Opacity of the lines
+        }
+    });
 
-//     // Add Neighbourhoods
-//     map.addSource('neighbourhoods', {
-//         type: 'geojson',
-//         data: 'https://raw.githubusercontent.com/huailun-j/GGR472-Lab3/main/Data/Neighbourhoods.geojson' 
-//     });
+    // Add Neighbourhoods
+    map.addSource('neighbourhoods', {
+        type: 'geojson',
+        data: 'https://raw.githubusercontent.com/huailun-j/GGR472-Lab3/main/Data/Neighbourhoods.geojson' 
+    });
 
-//     map.addLayer({
-//         'id': 'neighbourhoods',
-//         'type': 'fill',
-//         'source': 'neighbourhoods',
-//         'paint': {
-//             'fill-color': '#fce3c0',
-//             'fill-opacity': 0.64,
-//             'fill-outline-color': 'black'
-//         }
-//     });
+    map.addLayer({
+        'id': 'neighbourhoods',
+        'type': 'fill',
+        'source': 'neighbourhoods',
+        'paint': {
+            'fill-color': '#fce3c0',
+            'fill-opacity': 0.64,
+            'fill-outline-color': 'black'
+        }
+    });
 
     // Pop-up windows that appear on a mouse click or hover
     // pop up, Bicycle Parking. When mouse click, can see the bicycle parking info. Changing cursor on mouse over.
@@ -345,7 +346,7 @@ map.on('load', () => {
 });
 
 
-//comes from chatgpt, intend to fix the error (my points shows orange instead of green)
+//comes from chatgpt, intend to fix the error (my points shows orange instead of green), <can delete>
 fetch('https://raw.githubusercontent.com/huailun-j/GGR472-Lab3/main/Data/Bicycle-Parking.geojson')
     .then(response => response.json())
     .then(data => {
