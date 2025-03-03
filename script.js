@@ -32,7 +32,7 @@ document.getElementById('returnbutton').addEventListener('click', () => {
 
 // Bicycle parking 
 map.on('load', () => {
-    // here 2 "if" founction I asked chatgpt to help, there are orange points and blue points overlay in my webmap, I think those 2 are duplicate. I try to delete orange point layer.
+    // here 2 "if" founction I asked chatgpt to help, there are orange points and blue points overlay in my webmap, I think those 2 layers are duplicate. And I try to delete orange point layer.
     // Remove any old orange points layer if it exists
     if (map.getLayer('bicycle-parking')) {
         map.removeLayer('bicycle-parking');
@@ -65,8 +65,8 @@ map.on('load', () => {
             'circle-color': [
                 'step', 
                 ['get', 'BICYCLE_CAPACITY'], 
-                '#b3cde3',
-                9, '#6497b1',
+                '#b3cde3', //0-9
+                9, '#6497b1', //10-19
                 19, '#005b96', // Darker Blue (20-29)
                 29, '#024D82', // Deep Blue (30-99)
                 99, '#011f4b'  // Almost Black (100+)
@@ -165,7 +165,7 @@ map.on('load', () => {
         '>100'
         
     ];
-    
+    //legend color
     const legendColors = [
         '#b3cde3',
         '#6497b1',
