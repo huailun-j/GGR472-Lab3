@@ -106,11 +106,11 @@ html, body {
 }
 
 /* each legend color */
-.legend-key:nth-child(1) { background: #d9f2d9; } /* 0-30 */
-.legend-key:nth-child(2) { background: #a7e0a7; } /* 30-60 */
-.legend-key:nth-child(3) { background: #76cd76; } /* 60-90 */
-.legend-key:nth-child(4) { background: #44bb44; } /* 90-120 */
-.legend-key:nth-child(5) { background: #0d880d; } /* >120 */
+.legend-key:nth-child(1) { background: #b3cde3; } /* 0-9 */
+.legend-key:nth-child(2) { background: #6497b1; } /* 10-19 */
+.legend-key:nth-child(3) { background: #005b96; } /* 20-29 */
+.legend-key:nth-child(4) { background: #024D82; } /* 30-99 */
+.legend-key:nth-child(5) { background: #011f4b; } /* >100 */
 
 /* Hide legend if checkbox is unchecked */
 #legend {
@@ -120,3 +120,4 @@ html, body {
 #legend.hidden {
     display: none;
 }
+

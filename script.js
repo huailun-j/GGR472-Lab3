@@ -30,131 +30,27 @@ document.getElementById('returnbutton').addEventListener('click', () => {
 });
 
 
-
-
-
-
-
-// //here is the test. if founction from chatgpt, because when i see the console, shows the layer duplication, i'm not sure if it will cause the error.
-// map.on('load', () => {
-    
-//     // ✅ **Check and Add Bicycle Parking Source**
-//     if (!map.getSource('bicycle-parking')) {
-//         console.log("Adding bicycle-parking source...");
-//         map.addSource('bicycle-parking', {
-//             type: 'geojson',
-//             data: 'https://raw.githubusercontent.com/huailun-j/GGR472-Lab3/main/Data/Bicycle-Parking.geojson'
-//         });
-//     } else {
-//         console.log("Bicycle parking source already exists.");
-//     }
-
-//     // ✅ **Check and Add Bicycle Parking Layer**
-//     if (!map.getLayer('bicycle-parking')) {
-//         console.log("Adding bicycle-parking layer...");
-//         map.addLayer({
-//             'id': 'bicycle-parking',
-//             'type': 'circle',
-//             'source': 'bicycle-parking',
-//             'paint': {
-//                 'circle-radius': [
-//                     'interpolate', ['linear'], ['zoom'],
-//                     10, 5, 
-//                     12, 8  
-//                 ],
-//                 'circle-color': [
-//                     'step', 
-//                     ['get', 'BICYCLE_CAPACITY'], 
-//                     '#d9f2d9',
-//                     9, '#a7e0a7',
-//                     19, '#76cd76', 
-//                     29, '#44bb44', 
-//                     99, '#0d880d'
-//                 ],
-//                 'circle-stroke-color': '#000000',
-//                 'circle-stroke-width': 1
-//             }
-//         });
-//     } else {
-//         console.log("Bicycle parking layer already exists.");
-//     }
-
-//     // ✅ **Check and Add Cycling Network Source**
-//     if (!map.getSource('cycling-network')) {
-//         map.addSource('cycling-network', {
-//             type: 'geojson',
-//             data: 'https://raw.githubusercontent.com/huailun-j/GGR472-Lab3/main/Data/cycling-network.geojson'
-//         });
-//     }
-
-//     // ✅ **Check and Add Cycling Network Layer**
-//     if (!map.getLayer('cycling-network')) {
-//         map.addLayer({
-//             'id': 'cycling-network',
-//             'type': 'line',
-//             'source': 'cycling-network',
-//             'paint': {
-//                 'line-color': '#d66705',
-//                 'line-width': 2.2,
-//                 'line-opacity': 0.91
-//             }
-//         });
-//     }
-
-//     // ✅ **Check and Add Neighbourhood Source**
-//     if (!map.getSource('neighbourhoods')) {
-//         map.addSource('neighbourhoods', {
-//             type: 'geojson',
-//             data: 'https://raw.githubusercontent.com/huailun-j/GGR472-Lab3/main/Data/Neighbourhoods.geojson'
-//         });
-//     }
-
-//     // ✅ **Check and Add Neighbourhood Layer**
-//     if (!map.getLayer('neighbourhoods')) {
-//         map.addLayer({
-//             'id': 'neighbourhoods',
-//             'type': 'fill',
-//             'source': 'neighbourhoods',
-//             'paint': {
-//                 'fill-color': '#fce3c0',
-//                 'fill-opacity': 0.64,
-//                 'fill-outline-color': 'black'
-//             }
-//         });
-//     }
-
-
-
-
-
-
-
-
-
-
-
 // Bicycle parking 
 map.on('load', () => {
+    // here 2 "if" founction I asked chatgpt to help, there are orange points and blue points overlay in my webmap, I think those 2 are duplicate. I try to delete orange point layer.
+    // Remove any old orange points layer if it exists
+    if (map.getLayer('bicycle-parking')) {
+        map.removeLayer('bicycle-parking');
+    }
+
+    // Remove the old source (GeoJSON data) if it exists, I think it causes duplicate layers or conflicts
+    if (map.getSource('bicycle-parking')) {
+        map.removeSource('bicycle-parking');
+    }
+
     // Add Bicycle Parking Points Layer
     map.addSource('bicycle-parking', {
         type: 'geojson',
         data: 'https://raw.githubusercontent.com/huailun-j/GGR472-Lab3/main/Data/Bicycle-Parking.geojson' 
     });
 
-
-    ///////Debug from chatgpt, but doesn't work: Print BICYCLE_CAPACITY values, <can delete>
-    map.on('sourcedata', (e) => {
-        if (e.sourceId === 'bicycle-parking' && e.isSourceLoaded) {
-            const features = map.querySourceFeatures('bicycle-parking');
-            features.forEach(feature => {
-                console.log('BICYCLE_CAPACITY:', feature.properties.BICYCLE_CAPACITY);
-            });
-        }
-    });
-
-
     map.addLayer({
-        'id': 'bicycle-parking',
+        'id': 'bicycle-parking-pnt',//change the unique id
         'type': 'circle',
         'source': 'bicycle-parking',
         'layout': {
@@ -163,21 +59,19 @@ map.on('load', () => {
         'paint': {
             'circle-radius': [
                 'interpolate', ['linear'], ['zoom'],
-                10, 5, // Zoom level 10: 5px
-                12,8  // Zoom level 12: 8px
+                10, 7.2, // Zoom level 10: 8px
+                12, 6 // Zoom level 12:6px
             ],
             'circle-color': [
                 'step', 
                 ['get', 'BICYCLE_CAPACITY'], 
-                '#d9f2d9',
-                9, '#a7e0a7',
-                19, '#76cd76', 
-                29, '#44bb44', 
-                99, '#0d880d'
+                '#b3cde3',
+                9, '#6497b1',
+                19, '#005b96', // Darker Blue (20-29)
+                29, '#024D82', // Deep Blue (30-99)
+                99, '#011f4b'  // Almost Black (100+)
 
             ],
-            'circle-stroke-color': '#000000',
-            'circle-stroke-width': 1
  
         }
     });
@@ -218,17 +112,17 @@ map.on('load', () => {
 
     // Pop-up windows that appear on a mouse click or hover
     // pop up, Bicycle Parking. When mouse click, can see the bicycle parking info. Changing cursor on mouse over.
-    map.on('mouseenter', 'bicycle-parking', () => {
+    map.on('mouseenter', 'bicycle-parking-pnt', () => {
         map.getCanvas().style.cursor = 'pointer';
     });
     
     // Changing cursor when mouse leave
-    map.on('mouseleave', 'bicycle-parking', () => {
+    map.on('mouseleave', 'bicycle-parking-pnt', () => {
         map.getCanvas().style.cursor = '';
     });
     
     // Event listener for showing popup on click, here is points data bicycle parking
-    map.on('click', 'bicycle-parking', (e) => {
+    map.on('click', 'bicycle-parking-pnt', (e) => {
         new mapboxgl.Popup()
             .setLngLat(e.lngLat) //Use method to set coordinates of popup based on mouse click location
             .setHTML(
@@ -273,11 +167,11 @@ map.on('load', () => {
     ];
     
     const legendColors = [
-        '#d9f2d9',
-        '#a7e0a7',
-        '#76cd76',
-        '#44bb44',
-        '#0d880d'
+        '#b3cde3',
+        '#6497b1',
+        '#005b96',
+        '#024D82',
+        '#011f4b'
     ];
     
     //Declare legend  here
@@ -314,7 +208,7 @@ map.on('load', () => {
     // Add event listener to toggle the visibility of the bicycle parking points layer
     document.getElementById('bicycleparkingcheck').addEventListener('change', (e) => {
         map.setLayoutProperty(
-            'bicycle-parking',
+            'bicycle-parking-pnt',
             'visibility',
             e.target.checked ? 'visible' : 'none'
         );
@@ -346,23 +240,6 @@ map.on('load', () => {
 });
 
 
-//comes from chatgpt, intend to fix the error (my points shows orange instead of green), <can delete>
-fetch('https://raw.githubusercontent.com/huailun-j/GGR472-Lab3/main/Data/Bicycle-Parking.geojson')
-    .then(response => response.json())
-    .then(data => {
-        console.log('Raw GeoJSON data:');
-        if (data.features && data.features.length > 0) {
-            // Log the first 3 features
-            console.log('First 3 features:');
-            for (let i = 0; i < Math.min(3, data.features.length); i++) {
-                console.log(`Feature ${i}:`, data.features[i].properties);
-                // Log specifically the BICYCLE_CAPACITY
-                console.log(`BICYCLE_CAPACITY type:`, typeof data.features[i].properties.BICYCLE_CAPACITY);
-                console.log(`BICYCLE_CAPACITY value:`, data.features[i].properties.BICYCLE_CAPACITY);
-            }
-        }
-    })
-    .catch(error => console.error('Error fetching GeoJSON:', error));
 
 
 
